@@ -5,7 +5,7 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
 jobs:
-  create-scratch-org:
+  yuka-birthday:
     # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/configuration-reference/#executor-job
     docker:
@@ -25,21 +25,19 @@ jobs:
             sf org create scratch -f config/project-scratch-def.json -a circle_build_$CIRCLE_BUILD_NUM
             sf project deploy start -o circle_build_$CIRCLE_BUILD_NUM
 
-  run-tests:
-    - run:
-        name: "Run LWC tests"
-        command: |
-          npm test
-    - run:
-        name: "Run Apex tests"
-        command: |
-          sf force apex test run -u circle_build_$CIRCLE_BUILD_NUM --wait 10 --resultformat human --codecoverage
+      - run:
+          name: "Run LWC tests"
+          command: |
+            npm test
+      - run:
+          name: "Run Apex tests"
+          command: |
+            sf force apex test run -u circle_build_$CIRCLE_BUILD_NUM --wait 10 --resultformat human --codecoverage
 
-  delete-scratch-org:
-    - run:
-        name: "Delete useless Scratch org"
-        command: |
-          sf force org delete -p -u circle_build_$CIRCLE_BUILD_NUM
+      - run:
+          name: "Delete useless Scratch org"
+          command: |
+            sf force org delete -p -u circle_build_$CIRCLE_BUILD_NUM
 
 # Orchestrate jobs using workflows
 # Define a list of default parameter values that apply to all jobs in the workflow.
@@ -48,10 +46,4 @@ workflows:
   version: 2
   yuka-birthday:
     jobs:
-      - create-scratch-org:
-      - run-tests:
-          requires:
-            - create-scratch-org
-      - delete-scratch-org:
-          requires:
-            - create-scratch-org
+      - yuka-birthday
