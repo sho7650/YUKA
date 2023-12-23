@@ -37,7 +37,7 @@ jobs:
       - run:
           name: "Delete useless Scratch org"
           command: |
-            sf force org delete -p -u circle_build_$CIRCLE_BUILD_NUM
+            sf org delete scratch -p -o circle_build_$CIRCLE_BUILD_NUM
 
 # Orchestrate jobs using workflows
 # Define a list of default parameter values that apply to all jobs in the workflow.
