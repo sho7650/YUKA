@@ -1,0 +1,26 @@
+<template>
+    <lightning-card title="Yuka" icon-name="standard:data_cloud">
+      <lightning-layout>
+        <lightning-layout-item flexibility="auto" padding="around-small">
+          <lightning-input 
+            label="TATE"
+            type="number"
+            min="1"
+            max="65535"
+            value="tate"
+            onchange={handleTateChange}>
+          </lightning-input>
+          <lightning-input 
+            label="YOKO"
+            type="number"
+            min="1"
+            max="65535"
+            value="tate"
+            onchange={handleYokoChange}>
+          </lightning-input>
+          <lightning-button label="Yuka" onclick={handleClick}>
+          </lightning-button>
+        </lightning-layout-item>
+      </lightning-layout>
+    </lightning-card>
+</template>
