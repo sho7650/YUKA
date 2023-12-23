@@ -5,22 +5,29 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
 jobs:
-  say-hello:
+  yuka-birthday:
     # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/configuration-reference/#executor-job
     docker:
-      - image: cimg/base:stable
+      - image: cimg/salesforce/cli:latest-full
     # Add steps to the job
     # See: https://circleci.com/docs/configuration-reference/#steps
     steps:
       - checkout
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+          name: "Create a server.key"
+          command: |
+            openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out assets/server.key -base64 -K $DECRYPTION_KEY -iv $DECRYPTION_IV
+      - run:
+          name: "Authenticate and create Scratch org to Salesforce DevHub"
+          command: |
+            sf force auth jwt grant -i $CONSUMER_KEY -f assets/server.key --username $USERNAME -d
+            sf force org create -f config/project-scratch-def.json -a circle_build_$CIRCLE_BUILD_NUM --wait 2
+            sf force source push -u circle_build_$CIRCLE_BUILD_NUM
+
+      - run:
+          name: "Delete useless Scratch org"
+          command: |
+            sf force org delete -p -u circle_build_$CIRCLE_BUILD_NUM
 
 # Orchestrate jobs using workflows
-# See: https://circleci.com/docs/configuration-reference/#workflows
-workflows:
-  say-hello-workflow:
-    jobs:
-      - say-hello
