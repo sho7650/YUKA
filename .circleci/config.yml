@@ -22,7 +22,7 @@ jobs:
           name: "Authenticate and create Scratch org to Salesforce DevHub"
           command: |
             sf force auth jwt grant -i $CONSUMER_KEY -f assets/server.key --username $USERNAME -d
-            sf force org create -f config/project-scratch-def.json -a circle_build_$CIRCLE_BUILD_NUM --wait 2
+            sf force org create -f config/project-scratch-def.json -a circle_build_$CIRCLE_BUILD_NUM --wait 6
             sf force source push -u circle_build_$CIRCLE_BUILD_NUM
 
       - run:
