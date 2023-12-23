@@ -26,6 +26,11 @@ jobs:
             sf force source push -u circle_build_$CIRCLE_BUILD_NUM
 
       - run:
+          name: "Run Apex tests"
+          command: |
+            sf force apex test run -u circle_build_$CIRCLE_BUILD_NUM --wait 10 --resultformat human --codecoverage
+
+      - run:
           name: "Delete useless Scratch org"
           command: |
             sf force org delete -p -u circle_build_$CIRCLE_BUILD_NUM
