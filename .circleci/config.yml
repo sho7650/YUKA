@@ -48,7 +48,10 @@ workflows:
   version: 2
   yuka-birthday:
     jobs:
+      - create-scratch-org:
       - run-tests:
           requires:
             - create-scratch-org
       - delete-scratch-org:
+          requires:
+            - create-scratch-org
