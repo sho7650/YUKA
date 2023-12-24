@@ -33,7 +33,7 @@ jobs:
       - run:
           name: "Run Apex tests"
           command: |
-            sf force apex test run -u circle_build_$CIRCLE_BUILD_NUM --wait 10 --resultformat human --codecoverage
+            sf force apex test run --result-format human --code-coverage -o circle_build_$CIRCLE_BUILD_NUM
 
       - run:
           name: "Delete useless Scratch org"
