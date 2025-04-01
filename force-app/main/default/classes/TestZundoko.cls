@@ -19,9 +19,9 @@
  *
  * See the Apex Language Reference for more information about Testing and Code Coverage.
  */
-@isTest
+@IsTest
 private class TestZundoko {
-  @isTest
+  @IsTest
   static void testZundoko() {
     String K = 'キ・ヨ・シ！';
 
