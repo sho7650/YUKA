@@ -20,7 +20,7 @@
  * See the Apex Language Reference for more information about Testing and Code Coverage.
  */
 @IsTest
-private class UpdateContactAddressTest {
+private class TestUpdateContactAddress {
   // テストデータを作成する
   @testSetup
   static void setup() {
@@ -35,7 +35,7 @@ private class UpdateContactAddressTest {
     insert contacts;
   }
 
-  // updateContactsメソッドをテストする
+  // UpdateContactsメソッドをテストする
   @IsTest
   static void testUpdateContacts() {
     // テストデータの取得
@@ -49,13 +49,13 @@ private class UpdateContactAddressTest {
     }
 
     // テストコードの実行
-    UpdateContactAddress updateContactAddress = new UpdateContactAddress();
-    updateContactAddress.updateContacts(contactsToUpdate);
+    UpdateContactAddress UpdateContactAddress = new UpdateContactAddress();
+    UpdateContactAddress.UpdateContacts(contactsToUpdate);
 
     // 結果の確認
-    List<Contact> updatedContacts = [SELECT Id, LastName, MailingCountry FROM Contact];
-    for (Contact updatedContact : updatedContacts) {
-      System.assertEquals('JP', updatedContact.MailingCountry, '国(郵送先)が更新されていません。');
+    List<Contact> UpdatedContacts = [SELECT Id, LastName, MailingCountry FROM Contact];
+    for (Contact UpdatedContact : UpdatedContacts) {
+      System.assertEquals('JP', UpdatedContact.MailingCountry, '国(郵送先)が更新されていません。');
     }
   }
 }
